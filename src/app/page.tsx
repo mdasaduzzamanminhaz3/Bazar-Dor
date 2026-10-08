@@ -1,8 +1,9 @@
+import Hero from "@/components/hero";
 
 export default function Home() {
   return (
-    <div>
-      this is our home page 
+    <div className="bg-green-100">
+      <Hero/>
     </div>
   );
 }
