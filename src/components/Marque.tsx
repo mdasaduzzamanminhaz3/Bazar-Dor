@@ -15,21 +15,29 @@ interface IHeadline {
 }
 
 const Marquee = async () => {
-  const res = await fetch(
-    "https://api.api-store.workers.dev/api/bazardor/products",{next:{revalidate:200}});
+  let headlines: IHeadline[] = [];
 
-  if (!res.ok) {
-    throw new Error("Failed to fetch bazar products");
+  try {
+    const res = await fetch(
+      "https://api.api-store.workers.dev/api/bazardor/products",
+      { next: { revalidate: 200 } }
+    );
+
+    if (res.ok) {
+      headlines = await res.json();
+    }
+  } catch (error) {
+    console.error("Failed to fetch marquee products:", error);
   }
 
-  const data = await res.json();
-
-  const headlines: IHeadline[] = data;
+  // If fetch fails or no products returned, hide the marquee component safely
+  if (!headlines || headlines.length === 0) {
+    return null;
+  }
 
   return (
     <div>
       <div className="max-w-7xl mx-auto flex items-stretch">
-
         {/* Label */}
         <div className="bg-green-700 text-white px-4 sm:px-6 py-2 font-bold whitespace-nowrap flex items-center">
           আজকের বাজার দর
@@ -37,11 +45,7 @@ const Marquee = async () => {
 
         {/* Marquee */}
         <div className="flex-1 overflow-hidden">
-          <MarqueeText
-            className="py-2"
-            direction="right"
-            duration={10}
-          >
+          <MarqueeText className="py-2" direction="right" duration={10}>
             {headlines.map((h) => (
               <Link
                 href={`/product/${h.id}`}
@@ -54,9 +58,7 @@ const Marquee = async () => {
                 </div>
 
                 {/* Product Name */}
-                <span className="font-semibold">
-                  {h.nameBn}
-                </span>
+                <span className="font-semibold">{h.nameBn}</span>
 
                 {/* Price */}
                 <span className="whitespace-nowrap font-medium">
@@ -88,4 +90,3 @@ const Marquee = async () => {
 };
 
 export default Marquee;
-
