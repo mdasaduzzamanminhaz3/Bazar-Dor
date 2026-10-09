@@ -4,6 +4,7 @@ import ProductCard from "./ProductCard";
 interface IProduct {
   id: number;
   categoryNameBn: string;
+  slug:string;
   categoryIcon: string;
   nameBn:string;
   unit: string;
@@ -25,7 +26,7 @@ const TodaysPriceUp = async () => {
   const todayPriceUp = data.filter(
     (product) => product.change?.dir === "up").sort((a,b) => b.change.pct - a.change.pct).slice(0,6);
 
-  console.log("Today Price Up:", todayPriceUp);
+  // console.log("Today Price Up:", todayPriceUp);
 
   return (
     <div className="rounded-2xl mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-10 lg:px-8 bg-white m-8">

@@ -1,7 +1,9 @@
+import Link from "next/link";
 import { FaCaretDown, FaCaretUp } from "react-icons/fa";
 
 interface IProduct {
   id: number;
+  slug:string;
   categoryNameBn: string;
   categoryIcon: string;
   nameBn:string;
@@ -22,6 +24,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
   const isPriceUp = product.change.dir === "up";
 
   return (
+    <Link href={`/product/${product.id}`} className="block rounded-2xl focus-visible:outline-2 focus-visible:outline-green-600" >
     <div className="bg-white border border-gray-200 hover:border-green-500 hover:shadow-md transition-all duration-300 px-4 py-4 rounded-2xl">
       {/* Product Info */}
       <div className="flex items-center gap-3">
@@ -63,6 +66,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
         </span>
       </div>
     </div>
+    </Link>
   );
 };
 

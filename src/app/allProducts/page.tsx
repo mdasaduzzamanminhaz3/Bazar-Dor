@@ -4,6 +4,7 @@ interface IProduct {
   id: number;
   categoryNameBn: string;
   nameBn:string;
+  slug:string;
   categoryIcon: string;
   unit: string;
   image: string;
