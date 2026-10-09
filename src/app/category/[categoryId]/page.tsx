@@ -1,33 +1,56 @@
-import ProductDetails from "@/components/ProductDetails";
+import SortProducts from "@/components/SortProducts";
 import { notFound } from "next/navigation";
 
-interface Iproduct {
-id: string,
-slug: string,
-nameBn: string,
-icon: string
+interface IProduct {
+  id: number;
+  slug: string;
+  nameBn: string;
+  category: string;
+  categoryNameBn: string;
+  categoryIcon: string;
+  unit: string;
+  image: string;
+  today: number;
+  change: {
+    dir: "up" | "down";
+    pct: number;
+  };
 }
-const CategoryNews = async({params}:{params:{categoryId:string}}) => {
-    const {categoryId} = await params;
-    const res = await fetch(`https://api.api-store.workers.dev/api/bazardor/categories/${categoryId}`)
-    const data = await res.json();
-    const categoryProducts:Iproduct[] = data.data;
-    if(!categoryProducts){
-        notFound()
-    }                   
-    return (
-        <div>
-      <h1 className="text-2xl font-bold border-b-2 border-red-700 mb-5">
-        {data.title}
-      </h1>
 
-      <div className="grid grid-cols-3 gap-10">
-        {categoryProducts.map((product) => (
-          <ProductDetails key={product.id} product={product} />
-        ))}
+interface CategoryPageProps {
+  params: Promise<{ categoryId: string }>;
+}
+
+const CategoryProducts = async ({ params }: CategoryPageProps) => {
+  const { categoryId } = await params;
+
+  const res = await fetch(
+    `https://api.api-store.workers.dev/api/bazardor/products?category=${encodeURIComponent(categoryId)}`,
+    { next: { revalidate: 300 } }
+  );
+
+  if (!res.ok) {
+    throw new Error(`Products API failed: ${res.status}`);
+  }
+
+  const products: IProduct[] = await res.json();
+
+  if (!Array.isArray(products) || products.length === 0) {
+    notFound();
+  }
+
+  return (
+    <main className="mx-auto max-w-7xl px-4 py-8">
+      <div className="rounded-2xl bg-white px-4 py-8">
+        <h1 className="text-2xl font-bold">
+          {products[0].categoryIcon} {products[0].categoryNameBn}
+        </h1>
+        <p>{products.length}টি পণ্যের আজকের দাম ও পরিবর্তন</p>
       </div>
-    </div>
-    );
+
+      <SortProducts products={products} />
+    </main>
+  );
 };
 
-export default CategoryNews;
+export default CategoryProducts;
