@@ -8,23 +8,21 @@ if (!mongodbUrl) {
 }
 
 const client = new MongoClient(mongodbUrl);
-const db = client.db('bangla-news-24');
+const db = client.db('bazar-dor');
 
 export const auth = betterAuth({
 emailAndPassword: { 
     enabled: true,
-    requireEmailVerification: false, // Optional: require email verification for sign-up
-
   },
  
   socialProviders: {
         google: { 
-            clientId: process.env.GOOGLE_OAUTH_CLIENT_ID as string, 
-            clientSecret: process.env.GOOGLE_oAUTH_CLIENT_SECRET as string, 
+            clientId: process.env.BETTER_AUTH_GOOGLE_CLIENT_ID as string, 
+            clientSecret: process.env.BETTER_AUTH_GOOGLE_CLIENT_SECRET as string, 
         },
         github: { 
-            clientId: process.env.GITHUB_OAUTH_CLIENT_ID as string, 
-            clientSecret: process.env.GITHUB_OAUTH_CLIENT_SECRET as string, 
+            clientId: process.env.BETTER_AUTH_GITHUB_CLIENT_ID as string, 
+            clientSecret: process.env.BETTER_AUTH_GITHUB_CLIENT_SECRET as string, 
         }, 
     },
   database: mongodbAdapter(db, {

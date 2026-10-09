@@ -10,24 +10,41 @@ import { FaArrowLeftLong } from "react-icons/fa6";
 import { FcGoogle } from "react-icons/fc";
 
 const SignUpPage = () => {
-  const onSubmit =async (e: React.SubmitEvent<HTMLElement>) => {
-    e.preventDefault();
-    const formData = new FormData(e.target);
-    const user = Object.fromEntries(formData.entries()) as {name:string,email:string,image:string,password:string}
-    const{data,error}= await authClient.signUp.email({
-        ...user,
-        callbackURL:"/"
-    })
-    if(data){
-        console.log(data);
-        toast.success("Please check your email.verify your account")
-        redirect('/')
-    }
-    if(error){
-        console.log(error);
-        toast.error(error.message as string)
-    }
-  };
+
+const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
+
+  const formData = new FormData(e.currentTarget);
+
+  const name = String(formData.get("name") || "");
+  const email = String(formData.get("email") || "");
+  const password = String(formData.get("password") || "");
+  const confirmPassword = String(
+    formData.get("confirmPassword") || ""
+  );
+
+  // Confirm password validation
+  if (password !== confirmPassword) {
+    toast.error("পাসওয়ার্ড দুটি মিলছে না!");
+    return;
+  }
+
+  const { data, error } = await authClient.signUp.email({
+    name,
+    email,
+    password,
+    callbackURL: "/",
+  });
+
+  if (error) {
+    toast.error(error.message as string);
+    return;
+  }
+
+  if (data) {
+    toast.success("সাইন আপ সফল হয়েছে!");
+  }
+};
 
   const handleGoogleSignIn = async() => {
     const data = await authClient.signIn.social({
@@ -117,31 +134,32 @@ const SignUpPage = () => {
                 name="password"
                 type="password"
                 required
-                minLength={6}
+                minLength={8}
                 placeholder="কমপক্ষে ৮ অক্ষর"
                 className="h-11 w-full rounded-lg border border-slate-300 px-4 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-green-500 focus:ring-4 focus:ring-green-500/10"
               />
             </div>
 
-            {/* confirm Password */}
-            <div>
-              <label
-                htmlFor="password"
-                className="mb-2 block text-sm font-medium text-slate-700"
-              >
-               পাসওয়ার্ড নিশ্চিত করুন
-              </label>
 
-              <input
-                id="password"
-                name="password"
-                type="password"
-                required
-                minLength={6}
-                placeholder="আবার লিখুন"
-                className="h-11 w-full rounded-lg border border-slate-300 px-4 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-green-500 focus:ring-4 focus:ring-green-500/10"
-              />
-            </div>
+{/* Confirm Password */}
+<div>
+  <label
+    htmlFor="confirmPassword"
+    className="mb-2 block text-sm font-medium text-slate-700"
+  >
+    পাসওয়ার্ড নিশ্চিত করুন
+  </label>
+
+  <input
+    id="confirmPassword"
+    name="confirmPassword"
+    type="password"
+    required
+    minLength={8}
+    placeholder="আবার পাসওয়ার্ড লিখুন"
+    className="h-11 w-full rounded-lg border border-slate-300 px-4 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-green-500 focus:ring-4 focus:ring-green-500/10"
+  />
+</div>
 
             {/* Submit */}
             <button
