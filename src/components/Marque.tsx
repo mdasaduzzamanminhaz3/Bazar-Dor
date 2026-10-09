@@ -44,7 +44,7 @@ const Marquee = async () => {
           >
             {headlines.map((h) => (
               <Link
-                href={`/bazardor/${h.id}`}
+                href={`/product/${h.id}`}
                 key={h.id}
                 className="inline-flex items-center gap-2 mx-5 transition bg-gray-50"
               >
