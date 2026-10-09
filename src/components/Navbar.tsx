@@ -39,7 +39,7 @@ const Navbar = async () => {
             className="flex items-center gap-3"
           >
             <Image
-            className="bg-green-700 rounded-md"
+            className="bg-green-600 rounded-md"
               src="/logo-icon.png"
               alt="bazar dor"
               width={48}
