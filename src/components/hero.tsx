@@ -1,6 +1,7 @@
 "use client"
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 const Hero = () => {
   const date = new Date().toLocaleDateString("bn-BD", {
@@ -35,9 +36,11 @@ const Hero = () => {
 
             {/* Button */}
             <div className="mt-7">
+                <Link href={'/allProducts'}>
               <button className="btn rounded-lg bg-green-600 px-6 py-3 font-semibold text-white shadow-md transition-all duration-200 hover:bg-green-700 hover:shadow-lg">
                 সব পণ্য দেখুন
               </button>
+                </Link>
             </div>
 
           </div>

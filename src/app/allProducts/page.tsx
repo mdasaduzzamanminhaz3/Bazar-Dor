@@ -1,4 +1,4 @@
-import ProductCard from "./ProductCard";
+import ProductCard from "../../components/ProductCard";
 
 interface IProduct {
   id: number;
@@ -27,7 +27,7 @@ const Products = async () => {
 //   console.log("Today Price Up:", todayPriceUp);
 
   return (
-    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div className="rounded-2xl mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-10 lg:px-8 bg-white m-8">
       <h4 className="flex items-center gap-1 text-lg font-semibold mb-4">
         সব পণ্য
       </h4>

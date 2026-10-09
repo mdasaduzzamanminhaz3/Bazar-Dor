@@ -5,6 +5,7 @@ interface IProduct {
   id: number;
   categoryNameBn: string;
   categoryIcon: string;
+  nameBn:string;
   unit: string;
   image: string;
   today: number;
@@ -27,7 +28,7 @@ const TodaysPriceDown = async () => {
   console.log("Today Price Up:", todayPriceDown);
 
   return (
-    <div className="m-4 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div className="rounded-2xl m-4 mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-10 lg:px-8 bg-white">
       <h4 className="flex items-center gap-1 text-lg font-semibold mb-4">
         <FaCaretDown className="text-green-600"/>
         আজকে দাম কমেছে
