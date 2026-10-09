@@ -16,12 +16,21 @@ interface IProduct {
 }
 
 const Products = async () => {
-  const res = await fetch(
-    "https://api.api-store.workers.dev/api/bazardor/products",
-    { next: { revalidate: 300 } }
-  );
+  let data: IProduct[] = [];
 
-  const data: IProduct[] = await res.json();
+  try {
+    const res = await fetch(
+      "https://api.api-store.workers.dev/api/bazardor/products",
+      { next: { revalidate: 300 } }
+    );
+
+    if (res.ok) {
+      data = await res.json();
+    }
+  } catch (error) {
+    console.error("Error fetching products:", error);
+  }
+
 
   return (
     <div

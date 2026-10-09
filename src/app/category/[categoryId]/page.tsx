@@ -22,18 +22,21 @@ interface CategoryPageProps {
 }
 
 const CategoryProducts = async ({ params }: CategoryPageProps) => {
-  const { categoryId } = await params;
+const { categoryId } = await params;
+  let products: IProduct[] = [];
 
-  const res = await fetch(
-    `https://api.api-store.workers.dev/api/bazardor/products?category=${categoryId}`,
-    { next: { revalidate: 300 } }
-  );
+  try {
+    const res = await fetch(
+      `https://api.api-store.workers.dev/api/bazardor/products?category=${categoryId}`,
+      { next: { revalidate: 300 } }
+    );
 
-  if (!res.ok) {
-    throw new Error(`Products API failed: ${res.status}`);
+    if (res.ok) {
+      products = await res.json();
+    }
+  } catch (error) {
+    console.error("Error fetching category products:", error);
   }
-
-  const products: IProduct[] = await res.json();
 
   if (!Array.isArray(products) || products.length === 0) {
     notFound();

@@ -33,26 +33,25 @@ interface ProductDetailsPageProps {
 }
 
 const ProductDetailsPage = async ({ params }: ProductDetailsPageProps) => {
-  const { id } = await params;
+const { id } = await params;
+  let product: IProduct | null = null;
 
-  //   if (!/^\d+$/.test(id)) {
-  //     notFound();
-  //   }
+  try {
+    const res = await fetch(
+      `https://api.api-store.workers.dev/api/bazardor/products/${id}`,
+      { next: { revalidate: 300 } }
+    );
 
-  const res = await fetch(
-    `https://api.api-store.workers.dev/api/bazardor/products/${id}`,
-    { next: { revalidate: 300 } },
-  );
+    if (res.status === 404) {
+      notFound();
+    }
 
-  if (res.status === 404) {
-    notFound();
+    if (res.ok) {
+      product = await res.json();
+    }
+  } catch (error) {
+    console.error("Error fetching product details:", error);
   }
-
-  if (!res.ok) {
-    throw new Error(`Products API failed: ${res.status}`);
-  }
-
-  const product: IProduct = await res.json();
 
   if (
     !product ||

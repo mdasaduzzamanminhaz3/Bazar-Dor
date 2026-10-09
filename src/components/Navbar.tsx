@@ -11,19 +11,26 @@ icon: string
 }
 
 const Navbar = async () => {
-  const res = await fetch(
-    "https://api.api-store.workers.dev/api/bazardor/categories",
-    {
-      next: {
-        revalidate: 60,
-      },
+
+let navs: INavLink[] = [];
+
+  try {
+    const res = await fetch(
+      "https://api.api-store.workers.dev/api/bazardor/categories",
+      {
+        next: {
+          revalidate: 60,
+        },
+      }
+    );
+
+    if (res.ok) {
+      navs = await res.json();
     }
-  );
-
-  const data = await res.json();
-
-  const navs: INavLink[] = data;
-
+  } catch (error) {
+    console.error("Error fetching categories:", error);
+  }
+  
   const date = new Date().toLocaleDateString("bn-BD", {
     dateStyle: "full",
   });
