@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import Marquee from "@/components/Marque";
+import { Toaster } from "react-hot-toast";
 const hind = Hind_Siliguri({
   subsets: ["latin", "bengali"],
   weight: "300",
@@ -17,15 +18,16 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
-      lang="en"
+      lang="bn"
       data-theme="light"
-      className={`${hind.className} h-full antialiased`}
+      className={`${hind.className} h-full antialiased scroll-smooth`}
     >
       <body className="min-h-full flex flex-col bg-green-50">
         <Navbar/>
         <Marquee/>
         {children}
         <Footer/>
+        <Toaster />
         </body>
     </html>
   );

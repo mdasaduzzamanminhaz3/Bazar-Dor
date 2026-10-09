@@ -36,11 +36,11 @@ const Hero = () => {
 
             {/* Button */}
             <div className="mt-7">
-                <Link href={'/allProducts'}>
-              <button className="btn rounded-lg bg-green-600 px-6 py-3 font-semibold text-white shadow-md transition-all duration-200 hover:bg-green-700 hover:shadow-lg">
+                {/* <Link href={'/allProducts'}> */}
+              <a href="#products-section" className="btn rounded-lg bg-green-600 px-6 py-3 font-semibold text-white shadow-md transition-all duration-200 hover:bg-green-700 hover:shadow-lg">
                 সব পণ্য দেখুন
-              </button>
-                </Link>
+              </a>
+                {/* </Link> */}
             </div>
 
           </div>

@@ -1,5 +1,5 @@
 import Hero from "@/components/hero";
-import Products from "@/app/allProducts/page";
+import Products from "@/components/Products";
 import TodaysPriceDown from "@/components/TodaysPriceDown";
 import TodaysPriceUp from "@/components/TodaysPriceUp";
 
