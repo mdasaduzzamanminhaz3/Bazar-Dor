@@ -1,5 +1,4 @@
 import ProductCard from "./ProductCard";
-
 interface IProduct {
   id: number;
   slug: string;

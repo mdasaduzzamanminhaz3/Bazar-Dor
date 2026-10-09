@@ -2,7 +2,6 @@ import Image from "next/image";
 import Link from "next/link";
 import NavLinks from "./NavLinks";
 import UserInfo from "./UserInfo";
-import CurrentDate from "./CurrentDate";
 
 interface INavLink {
 id: string,
@@ -25,9 +24,9 @@ const Navbar = async () => {
 
   const navs: INavLink[] = data;
 
-//   const date = new Date().toLocaleDateString("bn-BD", {
-//     dateStyle: "full",
-//   });
+  const date = new Date().toLocaleDateString("bn-BD", {
+    dateStyle: "full",
+  });
 
   return (
     <header className="border-b border-neutral-200 bg-white">
@@ -52,9 +51,10 @@ const Navbar = async () => {
                 বাজার দর
               </h1>
 
-              {/* <p className="text-xs text-neutral-500"> */}
-                <CurrentDate/>
-              {/* </p> */}
+              <p className="text-xs text-neutral-500">
+                {/* <CurrentDate/> */}
+              {date}
+              </p>
             </div>
           </Link>
 
