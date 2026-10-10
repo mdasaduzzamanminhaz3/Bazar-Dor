@@ -43,6 +43,7 @@ const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 
   if (data) {
     toast.success("সাইন আপ সফল হয়েছে!");
+    redirect('/');
   }
 };
 
