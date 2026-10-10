@@ -37,12 +37,7 @@ const Marquee = async () => {
 
   return (
     <div>
-      <div className="max-w-7xl mx-auto flex items-stretch">
-        {/* Label */}
-        <div className="bg-green-700 text-white px-4 sm:px-6 py-2 font-bold whitespace-nowrap flex items-center">
-          আজকের বাজার দর
-        </div>
-
+      <div className="max-w-7xl mx-auto flex items-stretch bg-white">
         {/* Marquee */}
         <div className="flex-1 overflow-hidden">
           <MarqueeText className="py-2" direction="right" duration={10}>
