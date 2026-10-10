@@ -5,10 +5,7 @@ import { useState } from "react";
 import { authClient } from "@/lib/auth-client";
 import Image from "next/image";
 import Link from "next/link";
-import {
-  FaUser,
-  FaChevronDown,
-} from "react-icons/fa";
+import { FaUser, FaChevronDown } from "react-icons/fa";
 import { PiArrowElbowDownLeftFill } from "react-icons/pi";
 
 const UserInfo = () => {
@@ -24,17 +21,17 @@ const UserInfo = () => {
 
   if (!user) {
     return (
-      <div className="flex items-center gap-2 absolute right-0 top-1/2">
+      <div className="flex items-center gap-1.5 sm:gap-2">
         <Link
           href="/signIn"
-          className="btn hover:bg-green-100 btn-sm text-green-700"
+          className="btn btn-xs border-green-200 bg-white text-green-700 hover:bg-green-50 sm:btn-sm"
         >
           সাইন ইন
         </Link>
 
         <Link
           href="/signUp"
-          className="btn bg-green-600 btn-sm text-white"
+          className="btn btn-xs border-green-600 bg-green-600 text-white hover:bg-green-700 sm:btn-sm"
         >
           সাইন আপ
         </Link>
@@ -43,17 +40,17 @@ const UserInfo = () => {
   }
 
   return (
-    <div className="absolute right-0 top-1/2">
+    <div className="relative">
       {/* Profile trigger */}
       <button
         type="button"
         onClick={() => setIsOpen((prev) => !prev)}
         aria-expanded={isOpen}
         aria-label="Open profile menu"
-        className="flex items-center gap-2 rounded-full px-2 py-1.5 transition hover:bg-gray-200 cursor-pointer"
+        className="flex max-w-full items-center gap-1.5 rounded-full px-1.5 py-1.5 transition hover:bg-gray-100 sm:gap-2 sm:px-2"
       >
-        <div className="avatar">
-          <div className="w-9 rounded-full ring-2 ring-success ring-offset-2">
+        <div className="avatar shrink-0">
+          <div className="w-8 rounded-full ring-2 ring-success ring-offset-1 sm:w-9 sm:ring-offset-2">
             <Image
               src={user.image || "/default-avatar.png"}
               alt={user.name || "User"}
@@ -65,19 +62,18 @@ const UserInfo = () => {
           </div>
         </div>
 
-        <span className="hidden max-w-28 truncate text-sm font-medium sm:block">
+        <span className="hidden max-w-28 truncate text-sm font-medium md:block">
           {user.name}
         </span>
 
         <FaChevronDown
-          size={11}
-          className={`transition-transform ${
+          size={10}
+          className={`shrink-0 transition-transform ${
             isOpen ? "rotate-180" : ""
           }`}
         />
       </button>
 
-      {/* Dropdown menu */}
       {isOpen && (
         <>
           {/* Outside click overlay */}
@@ -88,12 +84,13 @@ const UserInfo = () => {
             onClick={() => setIsOpen(false)}
           />
 
-          <div className="absolute right-0 top-full z-50 mt-3 w-72 overflow-hidden rounded-2xl border border-base-300 bg-base-100 shadow-xl">
+          {/* Dropdown */}
+          <div className="absolute right-0 top-full z-50 mt-2 w-[min(18rem,calc(100vw-1.5rem))] overflow-hidden rounded-xl border border-base-300 bg-base-100 shadow-xl sm:mt-3 sm:rounded-2xl">
             {/* User information */}
-            <div className="border-b border-base-200 p-4">
+            <div className="border-b border-base-200 p-3 sm:p-4">
               <div className="flex items-center gap-3">
-                <div className="avatar">
-                  <div className="w-12 rounded-full">
+                <div className="avatar shrink-0">
+                  <div className="w-10 rounded-full sm:w-12">
                     <Image
                       src={user.image || "/default-avatar.png"}
                       alt={user.name || "User"}
@@ -105,7 +102,7 @@ const UserInfo = () => {
                   </div>
                 </div>
 
-                <div className="min-w-0">
+                <div className="min-w-0 flex-1">
                   <p className="truncate text-sm font-bold">
                     {user.name || "Bazar Dor User"}
                   </p>
@@ -124,7 +121,7 @@ const UserInfo = () => {
                 onClick={() => setIsOpen(false)}
                 className="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition hover:bg-base-200"
               >
-                <FaUser className="text-base-content/60" />
+                <FaUser className="shrink-0 text-base-content/60" />
                 <span>আমার প্রোফাইল</span>
               </Link>
 
@@ -133,7 +130,7 @@ const UserInfo = () => {
                 onClick={handleSignout}
                 className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm text-error transition hover:bg-error/10"
               >
-                <PiArrowElbowDownLeftFill className="font-extrabold text-xl"/>
+                <PiArrowElbowDownLeftFill className="shrink-0 text-xl" />
                 <span>সাইন আউট</span>
               </button>
             </div>
