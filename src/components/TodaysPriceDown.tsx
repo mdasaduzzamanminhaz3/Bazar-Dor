@@ -18,7 +18,7 @@ interface IProduct {
 
 const TodaysPriceDown = async () => {
   const res = await fetch(
-    "https://api.api-store.workers.dev/api/bazardor/products",{next:{revalidate:300}}
+    "https://openapi.programming-hero.com/api/bazardor/products",{next:{revalidate:300}}
   );
 
   const data: IProduct[] = await res.json();

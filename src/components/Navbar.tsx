@@ -16,7 +16,7 @@ let navs: INavLink[] = [];
 
   try {
     const res = await fetch(
-      "https://api.api-store.workers.dev/api/bazardor/categories",
+      "https://openapi.programming-hero.com/api/bazardor/categories",
       {
         next: {
           revalidate: 60,

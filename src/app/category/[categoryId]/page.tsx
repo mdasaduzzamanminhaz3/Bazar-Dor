@@ -27,7 +27,7 @@ const { categoryId } = await params;
 
   try {
     const res = await fetch(
-      `https://api.api-store.workers.dev/api/bazardor/products?category=${categoryId}`,
+      `https://openapi.programming-hero.com/api/bazardor/products?category=${categoryId}`,
       { next: { revalidate: 300 } }
     );
 
